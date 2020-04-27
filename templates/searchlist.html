@@ -1,0 +1,60 @@
+<html>
+<head>
+    <title>{{t}}</title>
+    <!-- href="/static/assets/style.css"-->
+    <link href="{{ url_for('static',filename='assets/style.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static',filename='assets/emoji.css')}}" rel="stylesheet" type="text/css">
+    <script src="{{ url_for('static',filename='assets/twemoji.min.js')}}"></script>
+    <script src="{{ url_for('static',filename='assets/emoji.js')}}"></script>
+    <style>
+		  marquee{
+		  font-size: 20px;
+		  font-weight: 100%;
+		  color: green;
+		  font-family: sans-serif;
+		  }
+
+    </style>
+</head>
+<body>
+    <h1 align="center">{{ h }}</h1>
+    <hr>
+    {% if todos[0] %}
+    <center>-------------------------------------------------------------------
+        <h3>Result of the Search : To-DO List</h3>
+        -----------------------------------------------------------
+    </center>
+    <br>
+    <table align="center">
+        <tr align="center" id="row">
+            <td class="status">Status</td>
+            <td class="name">Task Name</td>
+            <td class="desc">Task Description</td>
+            <td class="date">Date</td>
+            <td class="pr">Project</td>
+            <td class="func">Delete</td>
+            <td class="func">Modify</td>
+        </tr>
+        {% for todo in todos %}
+        <tr align="center" class="datas">
+            <td><a href="./done?_id={{ todo['_id'] }}"><input alt="Submit ME" src="static/images/{{todo['done']}}.png"
+                                                              type="image"></a></td>
+            <td class="name">{{ todo["name"] }}</td>
+            <td class="desc">{{ todo["desc"] }}</td>
+            <td class="date">{{ todo["date"] }}</td>
+            <td class="pr">{{ todo["pr"] }}</td>
+            <td class="func1"><a href="./remove?_id={{ todo['_id'] }}">🗑️</a></td>
+            <td class="func1"><a href="./update?_id={{ todo['_id'] }}">📝</a></td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <h4>No Result Found !!</h4>
+        {% endif %}
+    </table>
+    <br>
+    <a href="/">Return to TaskList</a>
+    <br>
+    <br>
+    <marquee>------- {{ m }} --------</marquee>
+</body>
+</html>
